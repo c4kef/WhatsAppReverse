@@ -34,6 +34,9 @@
     &quot;accountId&quot;: &quot;239c20a1-ed9b-4ba4-af9d-3586761e86be&quot;
   }
 }</component>
+  <component name="HighlightingSettingsPerFile">
+    <setting file="file://$APPLICATION_CONFIG_DIR$/resharper-host/SourcesCache/106927d79dae58d552cf02cc6259937374ebd8103ac66086c62595612c9a6a/Convert.cs" root0="FORCE_HIGHLIGHTING" />
+  </component>
   <component name="MetaFilesCheckinStateConfiguration" checkMetaFiles="true" />
   <component name="ProjectColorInfo">{
   &quot;associatedIndex&quot;: 4
@@ -90,6 +93,10 @@
       <workItem from="1725603792206" duration="504000" />
       <workItem from="1725607375346" duration="636000" />
       <workItem from="1725916562977" duration="66000" />
+      <workItem from="1725961598977" duration="87000" />
+      <workItem from="1725977117382" duration="378000" />
+      <workItem from="1725989472455" duration="800000" />
+      <workItem from="1728386536463" duration="264000" />
     </task>
     <task id="LOCAL-00001" summary="Инициализация">
       <option name="closed" value="true" />
@@ -115,7 +122,31 @@
       <option name="project" value="LOCAL" />
       <updated>1725604285118</updated>
     </task>
-    <option name="localTasksCounter" value="4" />
+    <task id="LOCAL-00004" summary="Добавил новую версию, немного угробил дамп но пойдет">
+      <option name="closed" value="true" />
+      <created>1725961619894</created>
+      <option name="number" value="00004" />
+      <option name="presentableId" value="LOCAL-00004" />
+      <option name="project" value="LOCAL" />
+      <updated>1725961619894</updated>
+    </task>
+    <task id="LOCAL-00005" summary="Добавил новую версию">
+      <option name="closed" value="true" />
+      <created>1725961631194</created>
+      <option name="number" value="00005" />
+      <option name="presentableId" value="LOCAL-00005" />
+      <option name="project" value="LOCAL" />
+      <updated>1725961631194</updated>
+    </task>
+    <task id="LOCAL-00006" summary="еу">
+      <option name="closed" value="true" />
+      <created>1725961661462</created>
+      <option name="number" value="00006" />
+      <option name="presentableId" value="LOCAL-00006" />
+      <option name="project" value="LOCAL" />
+      <updated>1725961661462</updated>
+    </task>
+    <option name="localTasksCounter" value="7" />
     <servers />
   </component>
   <component name="TypeScriptGeneratedFilesManager">
@@ -129,6 +160,9 @@
     <MESSAGE value="Инициализация" />
     <MESSAGE value="Добавил декрипт для полей с сертификатами" />
     <MESSAGE value="Добавил несколько своих скриптов для Frida из приват репы" />
-    <option name="LAST_COMMIT_MESSAGE" value="Добавил несколько своих скриптов для Frida из приват репы" />
+    <MESSAGE value="Добавил новую версию, немного угробил дамп но пойдет" />
+    <MESSAGE value="Добавил новую версию" />
+    <MESSAGE value="еу" />
+    <option name="LAST_COMMIT_MESSAGE" value="еу" />
   </component>
 </project>
