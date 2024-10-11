@@ -9,6 +9,7 @@
   <component name="ChangeListManager">
     <list default="true" id="304bb109-cb14-4526-9a35-9b602aeef755" name="Changes" comment="">
       <change beforePath="$PROJECT_DIR$/.idea/.idea.WhatsAppReverse/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/.idea.WhatsAppReverse/.idea/workspace.xml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/WhatsAppReverse.sln.DotSettings.user" beforeDir="false" afterPath="$PROJECT_DIR$/WhatsAppReverse.sln.DotSettings.user" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/WhatsAppReverse/Program.cs" beforeDir="false" afterPath="$PROJECT_DIR$/WhatsAppReverse/Program.cs" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
@@ -36,6 +37,7 @@
 }</component>
   <component name="HighlightingSettingsPerFile">
     <setting file="file://$APPLICATION_CONFIG_DIR$/resharper-host/SourcesCache/106927d79dae58d552cf02cc6259937374ebd8103ac66086c62595612c9a6a/Convert.cs" root0="FORCE_HIGHLIGHTING" />
+    <setting file="file://$APPLICATION_CONFIG_DIR$/resharper-host/SourcesCache/bd1d5c50194fea68ff3559c160230b0ab50f5acf4ce3061bffd6d62958e2182/ExceptionDispatchInfo.cs" root0="FORCE_HIGHLIGHTING" />
   </component>
   <component name="MetaFilesCheckinStateConfiguration" checkMetaFiles="true" />
   <component name="ProjectColorInfo">{
@@ -97,6 +99,8 @@
       <workItem from="1725977117382" duration="378000" />
       <workItem from="1725989472455" duration="800000" />
       <workItem from="1728386536463" duration="264000" />
+      <workItem from="1728466020701" duration="26000" />
+      <workItem from="1728644348534" duration="803000" />
     </task>
     <task id="LOCAL-00001" summary="Инициализация">
       <option name="closed" value="true" />
@@ -146,7 +150,15 @@
       <option name="project" value="LOCAL" />
       <updated>1725961661462</updated>
     </task>
-    <option name="localTasksCounter" value="7" />
+    <task id="LOCAL-00007" summary="New body whatsapp">
+      <option name="closed" value="true" />
+      <created>1728466036742</created>
+      <option name="number" value="00007" />
+      <option name="presentableId" value="LOCAL-00007" />
+      <option name="project" value="LOCAL" />
+      <updated>1728466036742</updated>
+    </task>
+    <option name="localTasksCounter" value="8" />
     <servers />
   </component>
   <component name="TypeScriptGeneratedFilesManager">
@@ -163,6 +175,7 @@
     <MESSAGE value="Добавил новую версию, немного угробил дамп но пойдет" />
     <MESSAGE value="Добавил новую версию" />
     <MESSAGE value="еу" />
-    <option name="LAST_COMMIT_MESSAGE" value="еу" />
+    <MESSAGE value="New body whatsapp" />
+    <option name="LAST_COMMIT_MESSAGE" value="New body whatsapp" />
   </component>
 </project>
