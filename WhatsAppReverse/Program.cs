@@ -2,8 +2,6 @@
 using System.Security.Cryptography;
 using System.Text;
 
-//Все поля содержат имена эквивалентные друг другу в оригинале.
-//С заполнением проблем не должно быть будут проблемы
 var gpia =
     "Rhujt5MA4nGkt0xtxzhCTWQPsFFNtsj0%2BP8nBKXni0mCPJQaJiQAotxQeEMfMtrXAbgv4cVO2aurlG0szASRrTlPBdjknnSfFTQ2uC1fdDeL1gYlfLKIhEV6iQ8w6oOKuMgPoKGFizUqPJ7GUV51Klunl9ryA1gTJOwTTm5Ip1GPqSTJpgWlMD0acgVjFRHpi3qfYnVtipROQQijGtYfN0kFS5EmIpku7BQv0fy1q%2BFj2z3x5USI40jYvVhZiEfXHTcPoP8pjTjIPf1XTFjCJk6nAnOCilmG960g2PZaBMzeaHX59oNiZe2qkFQOA0wyYfwszC%2B77Ufd2zFdOSqjkeLAttB2qiAay3zn9Tf6vWjGOCW7eFhfPhgKnYvnzW9QkO8kwcYDITJIDLfl8PFhKg%3D%3D";
 
@@ -16,7 +14,6 @@ var authkey = "f03RwqZBVEuMSH-hYjuWKnqm-ZA9HT2s3swGy-FrWl4";
 Console.WriteLine("Decrypted gpia: " + DecryptPlayIntegrityField(gpia, authkey));
 Console.WriteLine("Decrypted gi: " + DecryptPlayIntegrityField(gi, authkey));
 Console.WriteLine("Decrypted gg: " + DecryptPlayIntegrityField(gg, authkey));
-Console.WriteLine("Decrypted test: " + DecryptPlayIntegrityField("0gwCfcxLVlcWwFqhAZei9HqgV1jk3KUVxhTgF%2Fp1uW4%3D", authkey));
 return;
 
 string DecryptPlayIntegrityField(string encryptedData, string privateKey)
