@@ -1030,9 +1030,6 @@ Java.perform(async function() {
         
     }, 0);
     
-    
-    
-    
     function returner(typeName) {
         // This is a improvable rudimentary fix, if not works you can patch it manually
         //console.log("typeName: "+typeName)
@@ -1168,123 +1165,6 @@ Java.perform(async function() {
         return printStr;
     }
     
-
-    /*
-
-    TO IMPLEMENT:
-
-    Exec Family
-
-    int execl(const char *path, const char *arg0, ..., const char *argn, (char *)0);
-    int execle(const char *path, const char *arg0, ..., const char *argn, (char *)0, char *const envp[]);
-    int execlp(const char *file, const char *arg0, ..., const char *argn, (char *)0);
-    int execlpe(const char *file, const char *arg0, ..., const char *argn, (char *)0, char *const envp[]);
-    int execv(const char *path, char *const argv[]);
-    int execve(const char *path, char *const argv[], char *const envp[]);
-    int execvp(const char *file, char *const argv[]);
-    int execvpe(const char *file, char *const argv[], char *const envp[]);
-
-    */
-
-
-    BufferedReader.readLine.overload('boolean').implementation = function() {
-        var text = this.readLine.overload('boolean').call(this);
-        if (text === null) {
-            // just pass , i know it's ugly as hell but test != null won't work :(
-        } else {
-            var shouldFakeRead = (text.indexOf("ro.build.tags=test-keys") > -1);
-            if (shouldFakeRead) {
-                send("Bypass build.prop file read");
-                text = text.replace("ro.build.tags=test-keys", "ro.build.tags=release-keys");
-            }
-        }
-        return text;
-    };
-
-    var executeCommand = ProcessBuilder.command.overload('java.util.List');
-
-    ProcessBuilder.start.implementation = function() {
-        var cmd = this.command.call(this);
-        var shouldModifyCommand = false;
-        for (var i = 0; i < cmd.size(); i = i + 1) {
-            var tmp_cmd = cmd.get(i).toString();
-            if (tmp_cmd.indexOf("getprop") != -1 || tmp_cmd.indexOf("mount") != -1 || tmp_cmd.indexOf("build.prop") != -1 || tmp_cmd.indexOf("id") != -1) {
-                shouldModifyCommand = true;
-            }
-        }
-        if (shouldModifyCommand) {
-            send("Bypass ProcessBuilder " + cmd);
-            this.command.call(this, ["grep"]);
-            return this.start.call(this);
-        }
-        if (cmd.indexOf("su") != -1) {
-            send("Bypass ProcessBuilder " + cmd);
-            this.command.call(this, ["justafakecommandthatcannotexistsusingthisshouldthowanexceptionwheneversuiscalled"]);
-            return this.start.call(this);
-        }
-
-        return this.start.call(this);
-    };
-
-    if (useProcessManager) {
-        var ProcManExec = ProcessManager.exec.overload('[Ljava.lang.String;', '[Ljava.lang.String;', 'java.io.File', 'boolean');
-        var ProcManExecVariant = ProcessManager.exec.overload('[Ljava.lang.String;', '[Ljava.lang.String;', 'java.lang.String', 'java.io.FileDescriptor', 'java.io.FileDescriptor', 'java.io.FileDescriptor', 'boolean');
-
-        ProcManExec.implementation = function(cmd, env, workdir, redirectstderr) {
-            var fake_cmd = cmd;
-            for (var i = 0; i < cmd.length; i = i + 1) {
-                var tmp_cmd = cmd[i];
-                if (tmp_cmd.indexOf("getprop") != -1 || tmp_cmd == "mount" || tmp_cmd.indexOf("build.prop") != -1 || tmp_cmd == "id") {
-                    var fake_cmd = ["grep"];
-                    send("Bypass " + cmdarr + " command");
-                }
-
-                if (tmp_cmd == "su") {
-                    var fake_cmd = ["justafakecommandthatcannotexistsusingthisshouldthowanexceptionwheneversuiscalled"];
-                    send("Bypass " + cmdarr + " command");
-                }
-            }
-            return ProcManExec.call(this, fake_cmd, env, workdir, redirectstderr);
-        };
-
-        ProcManExecVariant.implementation = function(cmd, env, directory, stdin, stdout, stderr, redirect) {
-            var fake_cmd = cmd;
-            for (var i = 0; i < cmd.length; i = i + 1) {
-                var tmp_cmd = cmd[i];
-                if (tmp_cmd.indexOf("getprop") != -1 || tmp_cmd == "mount" || tmp_cmd.indexOf("build.prop") != -1 || tmp_cmd == "id") {
-                    var fake_cmd = ["grep"];
-                    send("Bypass " + cmdarr + " command");
-                }
-
-                if (tmp_cmd == "su") {
-                    var fake_cmd = ["justafakecommandthatcannotexistsusingthisshouldthowanexceptionwheneversuiscalled"];
-                    send("Bypass " + cmdarr + " command");
-                }
-            }
-            return ProcManExecVariant.call(this, fake_cmd, env, directory, stdin, stdout, stderr, redirect);
-        };
-    }
-
-    if (useKeyInfo) {
-        KeyInfo.isInsideSecureHardware.implementation = function() {
-            send("Bypass isInsideSecureHardware");
-            return true;
-        }
-    }
-
-    Java.perform(function() {
-        console.log("");
-        console.log("[.] Debug check bypass");
-
-        var Debug = Java.use('android.os.Debug');
-        Debug.isDebuggerConnected.implementation = function() {
-            //console.log('isDebuggerConnected Bypassed !');
-            return false;
-        }
-
-
-    });
-
     function waitForModule(moduleName) {
         return new Promise(function(resolve, reject) {
             const interval = setInterval(function() {
@@ -1293,227 +1173,27 @@ Java.perform(async function() {
                     clearInterval(interval);
                     resolve(baseAddress);
                 }
-            }, 1000); // Проверяем каждую секунду
+            }, 1000);//check every second
         });
     }
 
     const libwhatsapp_base_adr = await waitForModule("libwhatsapp.so");
     console.log("libwhatsapp.so address => ", libwhatsapp_base_adr);
 
-    let GpiaRegClient$calculateGpiaParameter$1 = Java.use("com.whatsapp.registration.integritysignals.GpiaRegClient$calculateGpiaParameter$1");
-    GpiaRegClient$calculateGpiaParameter$1["$init"].implementation = function (anonymousClass671, str, c1kk, i) {
-        console.log(`GpiaRegClient$calculateGpiaParameter$1.$init is called: anonymousClass671=${anonymousClass671}, str=${str}, c1kk=${c1kk}, i=${i}\n`);
-        str = ""//CtcBARCnMGvAUZUM4dut0XAusUBMnfoZjxxjdpyVbiP2kh08nkW9RqXMVUc-05wrr5QnWj6XS85p7WyMej_Udl0J7iLB908kxL-B1a2Fde0wIXsuL4rDkXGVOONArKDopRyxrmbRwP_6drcBMdJlGNsO8An-cF1KPEgxcPaHDNvID5OvmYjSNpB735O1a9H5WrMe8AR_kgLWOKbPT4HmaNk4C1nqQAEk6zIGFaYR98mBl330LZj9H0-PR6jtVA7_FjugVEjNieZ_hos0rPuyMicfXlm5b_ihcZkaagFVr4P7ChyvypqH32OIBKIRygibsjz8xNQnZNfz_EFiJ4l9z8IE1hJ5O1X90oAknhiJjj-esPTCXQ92qe4ghmLQfGcmYMWdFE-n8MiFcGmgxlCtJGngsIZg1AghtWnlDb79U44N82fSPu0"
-        
-        this["$init"](anonymousClass671, str, c1kk, i);
-    };
-
-/*Interceptor.attach(libwhatsapp_base_adr.add(0xA4C138), {
-    onEnter: function(args) {
-        console.log("Param: " + args[1].readCString());
-        console.log("hex: " + hexdump(args[2], {
-            length: 4000, // Увеличиваем длину до 64 байт
-            header: true,
-            ansi: true
-        }));
-    },
-    onLeave: function(retval) {
-        var str = retval;
-        console.log("[*] return=", str);
-        return retval;
-    }
-});*/
-/*
-const Base64 = Java.use('java.util.Base64');
-const ByteArrayOutputStream = Java.use('java.io.ByteArrayOutputStream');
-const KeyStore = Java.use('java.security.KeyStore');
-
-const keyStore = KeyStore.getInstance('AndroidKeyStore');
-keyStore.load(null, null);
-const aliases = keyStore.aliases();
-var aliasUsed = ""
-while (aliases.hasMoreElements()) {
-    const alias = aliases.nextElement();
-    aliasUsed = alias
-    console.log('Alias: ' + alias);
-}
-
-console.log('Used alias: ' + aliasUsed);
-const certificateChain = keyStore.getCertificateChain(aliasUsed);
-const byteArrayOutputStream = ByteArrayOutputStream.$new();
-
-if (certificateChain !== null) {
-    for (let i = certificateChain.length - 1; i >= 0; i--) {
-        const encodedCert = certificateChain[i].getEncoded();
-        byteArrayOutputStream.write(encodedCert, 0, encodedCert.length);
-    }
-}
-
-console.log('Authorization Header: ' + Base64.getEncoder().encodeToString(byteArrayOutputStream.toByteArray()));
-
-const Base64 = Java.use('java.util.Base64');
-
-
-let bn = Java.use("com.google.android.play.core.integrity.bn");
-bn["a"].implementation = function (bnVar, str, j, j2, i) {
-    console.log(`bn.a is called: bnVar=${bnVar}, str=${str}, j=${j}, j2=${j2}, i=${i}\n`);
-    let result = this["a"](bnVar, str, j, j2, i);
-    console.log(`bn.a result=${result}\n`);
-    return result;
-};
-/*
-let C18080wI = Java.use("X.0wI");
-C18080wI["A03"].implementation = function (c18080wI, num, bArr) {
-    console.log(`C18080wI.A03 is called: c18080wI=${c18080wI}, num=${num}, bArr=${bArr}`);
-    let result = this["A03"](c18080wI, num, bArr);
-    console.log('bArr: ' + Base64.getEncoder().encodeToString(bArr));
-
-    console.log(`C18080wI.A03 result=${result}`);
-    return result;
-};
-
-C18080wI["A07"].implementation = function (bArr, bArr2) {
-    console.log(`C18080wI.A07 is called: bArr=${bArr}, bArr2=${bArr2}`);
-    let result = this["A07"](bArr, bArr2);
-    console.log('bArr: ' + Base64.getEncoder().encodeToString(bArr));
-    console.log('bArr1: ' + Base64.getEncoder().encodeToString(bArr2));
-
-    console.log(`C18080wI.A07 result=${result}`);
-    return result;
-};
-
-let AnonymousClass707 = Java.use("X.707");
-AnonymousClass707["BRB"].implementation = function (c6j7, str, map) {
-    // Логируем информацию о вызове метода
-    console.log(`AnonymousClass707.BRB is called: c6j7=${c6j7}, str=${str}, map=${map}`);
-
-    let Exception = Java.use('java.lang.Exception');
-    let stackTrace = Exception.$new().getStackTrace();
-    for (let i = 0; i < stackTrace.length; i++) {
-        console.log('Stack Trace:', stackTrace[i].toString());
-    }
-
-    /*let entrySet = map.entrySet();
-    let iterator = entrySet.iterator();
-    // Итерируем по записям и выводим ключи и значения
-    while (iterator.hasNext()) {
-        let entry = iterator.next();
-        console.log('Entry:', entry);
-
-        try {
-            let key = entry.getKey();
-            let value = entry.getValue();
-            console.log(`Key: ${key}, Value: ${value}`);
-        } catch (e) {
-            console.log('Error accessing key or value: ' + e.message);
-        }
-    }
-
-    console.log("code: " + map.get("registration_code"))
-
-    //map.put("registration_code", "1")
-
-    //console.log("after change: " + map.get("registration_code"))
-
-    // Вызов оригинальной реализации метода
-    return this["BRB"](c6j7, str, map);
-};
-*/
-
-    Interceptor.attach(libwhatsapp_base_adr.add(0x9F0EBC), {
+    //Get decrypted params
+    Interceptor.attach(libwhatsapp_base_adr.add(0xB68D18), {
         onEnter: function(args) {
         },
         onLeave: function(retval) {
             var str = retval.readCString();
-            if (str.indexOf('&') != -1 && str.indexOf('&gpia') != -1) {
-                // Форматируем URL и параметры и отправляем их в Python-скрипт
-                var url = str.split('&')[0];
-                var params = str.substring(url.length);
+            if (str.indexOf('&') != -1 || str.indexOf('http') != -1) {
                 console.log(str)
             }
 
-            if (str.indexOf('{') != -1)
-                console.log(str)
+            /*if (str.indexOf('{') != -1)
+                console.log(str)*/
     
             return retval;
         }
     });
-    /*Interceptor.attach(libwhatsapp_base_adr.add(0x8322AC), {
-        onEnter: function(args) {
-            console.log("[*] hex in=: " + hexdump(args[0]));
-        },
-        onLeave: function(retval) {
-            console.log("[*] hex=", hexdump(retval));
-            return retval;
-        }
-    });
-    Interceptor.attach(libwhatsapp_base_adr.add(0xA4C138), {
-        onEnter: function(args) {
-            console.log("Param: " + args[1].readCString());
-            console.log("hex: " + hexdump(args[2], {
-                length: 4000, // Увеличиваем длину до 64 байт
-                header: true,
-                ansi: true
-            }));
-        },
-        onLeave: function(retval) {
-            var str = retval;
-            console.log("[*] return=", str);
-            return retval;
-        }
-    });
-   
-    /*
-
-    let bk = Java.use("com.google.android.play.core.integrity.bk");
-    bk["c"].implementation = function (bundle) {
-        console.log(`bk.c is called: bundle=${bundle}`);
-        bundle.getString.overload('java.lang.String').implementation = function(key) {
-            console.log("[*] Bundle.getString() called with key:", key);
-            
-            // Вызываем оригинальный метод getString()
-            var result = this.getString(key);
-    
-            // Выводим результат в консоль
-            console.log("[*] Result:", result);
-            // Возвращаем результат
-            return result;
-        };
-        this["c"](bundle);
-    };*/
-/*//CpYCARCnMGttlaFU4GZi21wcpwneYApg1HdVgz7y_hF7uxNeaH1iFUzhxGyLrnBcRr1aTPx4Vl700H_xTU9ShJiWIEk6EHl_BRv5P2XMyOUvk9T7ou6s-GWjAtwq7g3c14gnK1P3N0irQela96m9Z5Rk96o3U8wCx3SBnpHO7RUpFvUuZs-yW57IucO4z930BDVXxhu8c4dLf28FlNPcuAeLV4FsuppIghsFtHoieVr2r5unt9Ugd09d4PNBvq_yip9X9ANFVGO3uSmpCDv6FPDQwlZxjXnz_aF6wD5KHFz_7QxL6j_6oiTOPK5xVBCxOp--WujMLwBNlfC3MVnHUg02o1RSgIPmnxKd47NeOqIfnkmB2Aw9DSUaaQHDK6Ut8y0nLwqGX5P7WQWKUC0By2IopeBvuzhiKyEhwfHXJE-UTTyZEpeSzId2NjEoGL1R9FzNedbwVALOjFi7z5U8-143zLrYTTINWHaYdv3xN_mxt2Mz1zRvpWUMubB3QIdBhTA2Tw
-    // Получаем ссылку на класс GpiaRegClient$fetchTokenBlocking$1
-    const fetchTokenBlockingClass = Java.use(className);
-GpiaRegClient$calculateGpiaParameter$1.invokeSuspend is called: obj=X.0U7
-GpiaRegClient$calculateGpiaParameter$1.invokeSuspend result=COROUTINE_SUSPENDED
-
-GpiaRegClient$calculateGpiaParameter$1.invokeSuspend is called: obj=sS4VP8s9LGylGV8c9X4RgKnzF+8VWLKaFeltsZWqd/s1XKskYbtdG6QrCguU9FYEKIGuQDYgu9OfXJQLX3/wa9M2L8jo6zKq0Zj9RASW9dkyqsg6upGCTi7P46zrPSInHlAzzHsFu4ys6SB+QPeWBrRKT6eVS4Np160WWuWUghdgONeeLdTAFOOjyVhGweQmANl7lxq6DfpgQp5F1yNljqPBnGQFftVnKU/k50qEqB3uisthbePn23M05+TFQrCKxI/UtnIx+3ed9E2Qm6l9TgLzXbAbyc886AEdijNlbbhSHfVB6WFmysngpVPBetcyMInDJWjhiwj1DzFgTSw5OMJC5AuASTHCXNbOyG8L9Y+nHVC26kBkFMODi2PhGnCUblbVN0ovo1J1e/lhCTFKdmexlcA3mFDG4x84sr0eoz3o98OT5NOBc1J/4mRPjFWjK2cvKjtIsx6K6/cFZGPD/eCo5hud+36nm0uD3ExBjUev3TSNpRlJESN9LQS33Qdy6YWf43S04X0QignSAceYyAWv5y7REcWkSOvWTs+VIfjtjrZDU9J21Yg9XxePpD5MfZdQWBlJawZcz5lQpypU9eCSAiRGvXTiSb1My/o/OQTRObxwcxJLRJ+D9dFJSFGWChnfpk1LDknMeqXnuKslduDdwm0GmsmZP8pVS9CilWV37YtWrKZl17AoWh+Tq9tr+MB7UjcqAEXhGggVRf8Ccnk159jCUDzKB6Xb2TZ9BNVhn19DAkGTTx3pEig87VpcLhO4qCrbiAefiskjTE8VPiTrRPApMxt9yLOfba+7GecEkKacyEBLV8uUBXka8OFRZrgQ47oFua3vjk2r82t9op/claUM56e+t/PnftOuKwedqHwx673OLDeBqFI256NQRU9ftdOG1DL3c13+vAo/jgdAf76swiAesOUssyuRhoCr3QmNjkZX9p9cDBBCWgcBzpcgx8cGEApOiH/0Uan0UmzsuGnXkvEdYIv5Pc4R2mjhrX67GeAuR66KyqI8lS5r9Ir6Cp4crL0e4GU9iHIjdLfShIsUG34kYbq5+0EIreWleZd7vlIUGXx6OkObO1o8Dk8D/fBjiDaPRbp2p+vn4Q==
-GpiaRegClient$calculateGpiaParameter$1.invokeSuspend result=sS4VP8s9LGylGV8c9X4RgKnzF+8VWLKaFeltsZWqd/s1XKskYbtdG6QrCguU9FYEKIGuQDYgu9OfXJQLX3/wa9M2L8jo6zKq0Zj9RASW9dkyqsg6upGCTi7P46zrPSInHlAzzHsFu4ys6SB+QPeWBrRKT6eVS4Np160WWuWUghdgONeeLdTAFOOjyVhGweQmANl7lxq6DfpgQp5F1yNljqPBnGQFftVnKU/k50qEqB3uisthbePn23M05+TFQrCKxI/UtnIx+3ed9E2Qm6l9TgLzXbAbyc886AEdijNlbbhSHfVB6WFmysngpVPBetcyMInDJWjhiwj1DzFgTSw5OMJC5AuASTHCXNbOyG8L9Y+nHVC26kBkFMODi2PhGnCUblbVN0ovo1J1e/lhCTFKdmexlcA3mFDG4x84sr0eoz3o98OT5NOBc1J/4mRPjFWjK2cvKjtIsx6K6/cFZGPD/eCo5hud+36nm0uD3ExBjUev3TSNpRlJESN9LQS33Qdy6YWf43S04X0QignSAceYyAWv5y7REcWkSOvWTs+VIfjtjrZDU9J21Yg9XxePpD5MfZdQWBlJawZcz5lQpypU9eCSAiRGvXTiSb1My/o/OQTRObxwcxJLRJ+D9dFJSFGWChnfpk1LDknMeqXnuKslduDdwm0GmsmZP8pVS9CilWV37YtWrKZl17AoWh+Tq9tr+MB7UjcqAEXhGggVRf8Ccnk159jCUDzKB6Xb2TZ9BNVhn19DAkGT
-    // Получаем все методы класса
-    const methods = fetchTokenBlockingClass.class.getDeclaredMethods();
-
-    // Перехватываем все методы
-    methods.forEach(function(method) {
-        // Получаем имя метода
-        const methodName = method.getName();
-
-        console.log(methodName)
-        // Перехватываем метод и выводим его имя
-        fetchTokenBlockingClass[methodName].implementation = function() {
-            console.log("[*] Intercepting method", methodName, "in class", className);
-            
-                        // Преобразуем объект Arguments в массив
-            const argsArray = Array.prototype.slice.call(arguments);
-            console.log("[*] Arguments:", argsArray);
-
-            const methods1 = argsArray[0].class.toString();
-                console.log("[*] so name:", methods1);
-            // Вызываем оригинальный метод с переданными аргументами и получаем результат
-            const result = this[methodName].apply(this, arguments);
-            console.log("[*] Result:", result);
-
-            // Возвращаем результат
-            return result;
-        };
-    });*/
 });

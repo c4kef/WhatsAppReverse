@@ -2,18 +2,18 @@
 using System.Security.Cryptography;
 using System.Text;
 
-var gpia =
-    "Rhujt5MA4nGkt0xtxzhCTWQPsFFNtsj0%2BP8nBKXni0mCPJQaJiQAotxQeEMfMtrXAbgv4cVO2aurlG0szASRrTlPBdjknnSfFTQ2uC1fdDeL1gYlfLKIhEV6iQ8w6oOKuMgPoKGFizUqPJ7GUV51Klunl9ryA1gTJOwTTm5Ip1GPqSTJpgWlMD0acgVjFRHpi3qfYnVtipROQQijGtYfN0kFS5EmIpku7BQv0fy1q%2BFj2z3x5USI40jYvVhZiEfXHTcPoP8pjTjIPf1XTFjCJk6nAnOCilmG960g2PZaBMzeaHX59oNiZe2qkFQOA0wyYfwszC%2B77Ufd2zFdOSqjkeLAttB2qiAay3zn9Tf6vWjGOCW7eFhfPhgKnYvnzW9QkO8kwcYDITJIDLfl8PFhKg%3D%3D";
+const string gpia = "avjP%2FQUGnYecO%2FL8QgdFHELcqF37qLtG4qX%2FfM8HO%2F7uFih%2BVZSYCxLhMVz5hma7Y1naO0cu23jcANMTsBfHs4tvbhbtXsTPI1TwdYbPlW8bZl2B4JY3qsn9%2BR1XQXClx%2BmDKPwMLx%2BsSK38owdq0kErtm%2F0MvDUKRx6cB8vTm4XNyGXMlBw8%2FYhHcb1%2FdEU42i8L6qaNFIs%2FuGWlippQOlWoxeIZn3mTd3oh83KI9y8%2BlAmmDgYP4jYGyo0tKGstMYoLaB%2FMdL1ArWJDX4XHjTV8%2FVenrpoccSyk7z%2F3u%2Bi0niR%2FqUzjqH9JDsiXwhWYMl3ZjxphC%2FMc0%2BQ1jjDDkP2XnRECQeAKaSWalpEyXHilJsRo33JNsUdnSK7j%2BavYVt8pgqymJF2V9Taa8Y5Fg%3D%3D";
+const string gi = "3AfPZcOdBUTTcGjf%2B1Bp6A9Se5wmW3XfyC88cS80rOgysRFbQmSxL5iBpcEKai4q8A1VPkmp9MC0BwHFH1YtFa2nRiA1wRxh1Ng%2F6l77GPCC%2FvkN43QLdFt%2F%2B19ZfLhYd90PntZZdnw8mFBPVbbIplpcWLHYLxJqogp%2B0fPF9YwNXvevrBbqmERN5HSCkF2EEq3ajF1ItxbhnqPmRSeuofpM%2FQfWhkEqeXf5gjtJr55bWLUL%2F6RQ1iNjYCetaNJEsFGGkAp1Q8gI1xRerVSGtwDnvfWu62ordrr9jzf3acjkuWml4YE6Iia6G4rwBSHX%2F3rIJhebfxPbjGKx0cx2YyVNsecPJB444HrvJvzQWENMPJaNDiw4Dy0IdOsPGMQ4WkQAfN%2FMkLMBVoVHisIrUohr68z%2Bk36GI%2Fkama7JMu0KyRvVhzhWroC0pg8iEE95";
+const string gg = "j8h7Olu%2Bg2Ii02f6GKFzlclg%2BOX0X2O1VM%2FZ5JDcwyU%3D";
+const string accessSessionId = "4ka-cKVOTPuetZMebd5OAQ";
 
-var gi = "n08si9IU9K9HrxHKG2%2Bly3wG%2BYsmaVnnH9vy46k9N2O7%2FbaaCG1YruhiD%2FiGh1wOr%2BvupF2mdL9NwWK2jASciT4%2F5E7LRBNo4GhXukZ2iI6fK9YPjldrxyoeSYSqrkec7OopF%2B1JqDmhSLmaaQHPCJGQ0khpZ5i0qdQR798pFw4cqS6WbWIgUbaUek3kzKzCkyqytPQQ7wra0nVTsmOqgYw3Joh0egdvpBErCQvlK%2Fj1KxCjmw4nfClcMfyl2fRuTzWeDYR1vq5KKygOfWJvtcHv4%2FGs1HKR%2BeeY5d1q7w8v6k6IzIrtNkvYlbllLxs%2B9f99MRgldxcDYifG%2FezzwoVGn%2FmvDpa2EtaQFliAzoCLCt2F8gq%2FTZ3PRRdSJsCcEW1wsQmIiea8%2BQYwDZON1zIgTWf1USrSJlb9y%2BaexYfZK1PoSyVFJuK48lmf4kWe1R4utord0WxmgaPbGJPzGuhhaLU5xXqoTtdHe4DoIpKuxp2%2FS3mcpulnMuvvUajf";
-var gg =
-    "d6OnAFt6DoD326uICfPyn6R1R711O9RzSL59RFzse%2Bs%3D";
-
-var authkey = "f03RwqZBVEuMSH-hYjuWKnqm-ZA9HT2s3swGy-FrWl4";
+const string authkey = "Z86JF01hXLweT90THURDt7ChGDbKTvzFI6CXNsKHcBQ";
 
 Console.WriteLine("Decrypted gpia: " + DecryptPlayIntegrityField(gpia, authkey));
 Console.WriteLine("Decrypted gi: " + DecryptPlayIntegrityField(gi, authkey));
 Console.WriteLine("Decrypted gg: " + DecryptPlayIntegrityField(gg, authkey));
+Console.WriteLine("Decrypted access_session_id: " + new Guid(Convert.FromBase64String(ConvertToBase64FromBase64Url(accessSessionId))));
+
 return;
 
 string DecryptPlayIntegrityField(string encryptedData, string privateKey)
