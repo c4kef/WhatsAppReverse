@@ -7,7 +7,8 @@
     <option name="autoReloadType" value="SELECTIVE" />
   </component>
   <component name="ChangeListManager">
-    <list default="true" id="304bb109-cb14-4526-9a35-9b602aeef755" name="Changes" comment="new code">
+    <list default="true" id="304bb109-cb14-4526-9a35-9b602aeef755" name="Changes" comment="">
+      <change beforePath="$PROJECT_DIR$/.idea/.idea.WhatsAppReverse/.idea/projectSettingsUpdater.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/.idea.WhatsAppReverse/.idea/projectSettingsUpdater.xml" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/.idea/.idea.WhatsAppReverse/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/.idea.WhatsAppReverse/.idea/workspace.xml" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/WhatsAppReverse/Program.cs" beforeDir="false" afterPath="$PROJECT_DIR$/WhatsAppReverse/Program.cs" afterDir="false" />
     </list>
@@ -105,6 +106,13 @@
       <workItem from="1728933784426" duration="215000" />
       <workItem from="1728934113001" duration="332000" />
       <workItem from="1729345658121" duration="3329000" />
+      <workItem from="1729755084208" duration="272000" />
+      <workItem from="1729844249385" duration="216000" />
+      <workItem from="1730033254846" duration="400000" />
+      <workItem from="1730033775978" duration="105000" />
+      <workItem from="1730151470266" duration="66000" />
+      <workItem from="1730988613667" duration="116000" />
+      <workItem from="1732192795167" duration="1215000" />
     </task>
     <task id="LOCAL-00001" summary="Инициализация">
       <option name="closed" value="true" />
@@ -178,7 +186,31 @@
       <option name="project" value="LOCAL" />
       <updated>1728837337876</updated>
     </task>
-    <option name="localTasksCounter" value="10" />
+    <task id="LOCAL-00010" summary="Added new version 2.24.20.89 with offset for get decrypted params">
+      <option name="closed" value="true" />
+      <created>1729755111847</created>
+      <option name="number" value="00010" />
+      <option name="presentableId" value="LOCAL-00010" />
+      <option name="project" value="LOCAL" />
+      <updated>1729755111847</updated>
+    </task>
+    <task id="LOCAL-00011" summary="data for new version">
+      <option name="closed" value="true" />
+      <created>1729755134441</created>
+      <option name="number" value="00011" />
+      <option name="presentableId" value="LOCAL-00011" />
+      <option name="project" value="LOCAL" />
+      <updated>1729755134441</updated>
+    </task>
+    <task id="LOCAL-00012" summary="Added new version 2.24.20.89 with offset for get decrypted params">
+      <option name="closed" value="true" />
+      <created>1729755206014</created>
+      <option name="number" value="00012" />
+      <option name="presentableId" value="LOCAL-00012" />
+      <option name="project" value="LOCAL" />
+      <updated>1729755206014</updated>
+    </task>
+    <option name="localTasksCounter" value="13" />
     <servers />
   </component>
   <component name="TypeScriptGeneratedFilesManager">
@@ -187,7 +219,6 @@
   <component name="UnityCheckinConfiguration" checkUnsavedScenes="true" />
   <component name="UnityProjectConfiguration" hasMinimizedUI="false" />
   <component name="VcsManagerConfiguration">
-    <option name="LOCAL_CHANGES_DETAILS_PREVIEW_SHOWN" value="false" />
     <option name="CLEAR_INITIAL_COMMIT_MESSAGE" value="true" />
     <MESSAGE value="Инициализация" />
     <MESSAGE value="Добавил декрипт для полей с сертификатами" />
@@ -198,6 +229,8 @@
     <MESSAGE value="New body whatsapp" />
     <MESSAGE value="Clean response (1002 code)" />
     <MESSAGE value="remove old line" />
-    <option name="LAST_COMMIT_MESSAGE" value="remove old line" />
+    <MESSAGE value="data for new version" />
+    <MESSAGE value="Added new version 2.24.20.89 with offset for get decrypted params" />
+    <option name="LAST_COMMIT_MESSAGE" value="Added new version 2.24.20.89 with offset for get decrypted params" />
   </component>
 </project>
